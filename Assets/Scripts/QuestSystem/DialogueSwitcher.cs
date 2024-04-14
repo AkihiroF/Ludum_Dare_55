@@ -1,4 +1,3 @@
-using System.Collections;
 using deVoid.Utils;
 using QuestSystem.Data;
 using UnityEngine;
@@ -10,7 +9,7 @@ namespace QuestSystem
     {
         [SerializeField] private DialogueLanguagePreset[] dialogues;
         [SerializeField] private DialogueView dialogueView;
-        [SerializeField] private float waitTime;
+        [SerializeField] private bool isWayDialogue;
 
         private DialogueSequenceSO _currentLocalizedDialogueSequenceSo;
         private Dialogue _currentDialogue;
@@ -55,10 +54,11 @@ namespace QuestSystem
 
         private void EndDialogue()
         {
-            Signals.Get<OnEnableMovement>().Dispatch(true);
+            if(!isWayDialogue)
+                Signals.Get<OnEnableMovement>().Dispatch(true);
+            
             dialogueView.HideDialogueUI();
-            Debug.Log("End dialogue");
-            //dialogueView.HideDialogueUI();
+            
             // Тут можна додати інші дії після завершення діалогу
         }
     }
